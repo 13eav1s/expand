@@ -79,11 +79,11 @@ def  coefs_to_power_and_multiply_pascal(members: List[Member], powers: List[Powe
     for i in range(len(powers)):
         marker = ''
         if powers[i].power_x > 0:
-            marker += 'x'
+            marker += members[0].marker
             if powers[i].power_x > 1:
                 marker += '^' + str(powers[i].power_x)
         if powers[i].power_y > 0:
-            marker += 'y'
+            marker += members[1].marker
             if powers[i].power_y > 1:
                 marker += '^' + str(powers[i].power_y)
         new_member = Member(coef=members[0].coef**powers[i].power_x * members[1].coef**powers[i].power_y * pascal[i],
@@ -92,9 +92,28 @@ def  coefs_to_power_and_multiply_pascal(members: List[Member], powers: List[Powe
     return result_members
 
 
+def output(result: List[Member]):
+    for i in range(len(result)):
+        if result[i].coef == 1:
+            if i > 0:
+                print('+', result[i].marker, sep='', end='')
+            else:
+                print(result[i].marker, end='')
+        elif result[i].coef == -1:
+            print('-', result[i].marker, sep='', end='')
+        else:
+            if result[i].coef > 1:
+                if i == 0:
+                    print(str(result[i].coef), result[i].marker, sep='', end='')
+                else:
+                    print('+', str(result[i].coef), result[i].marker, sep='', end='')
+            else:
+                print(str(result[i].coef), result[i].marker, sep='', end='')
+
+
 expression = input()
 members = break_into_limbs(expression)
 pascal_coefs = pascal_triangle(members[2].coef)
 powers = GetPowers(members[2].coef)
 result_members = coefs_to_power_and_multiply_pascal(members, powers, pascal_coefs)
-pass
+output(result_members)
