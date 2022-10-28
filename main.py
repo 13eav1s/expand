@@ -84,11 +84,11 @@ def  coefs_to_power_and_multiply_pascal(members: List[Member], powers: List[Powe
         marker = ''
         if powers[i].power_x > 0:
             marker += members[0].marker
-            if powers[i].power_x > 1:
+            if powers[i].power_x > 1 and members[0].marker != '':
                 marker += '^' + str(powers[i].power_x)
         if powers[i].power_y > 0:
             marker += members[1].marker
-            if powers[i].power_y > 1:
+            if powers[i].power_y > 1 and members[1].marker != '':
                 marker += '^' + str(powers[i].power_y)
         new_member = Member(coef=members[0].coef**powers[i].power_x * members[1].coef**powers[i].power_y * pascal[i],
                             marker=marker)
@@ -97,6 +97,19 @@ def  coefs_to_power_and_multiply_pascal(members: List[Member], powers: List[Powe
 
 
 def output(result: List[Member]):
+    if len(result_members) == 1:
+        return print(1)
+    flag = 0
+    for i in range(len(result)):
+        if result[i].marker != '':
+            flag = 1
+            break
+    if flag == 0:
+        rez = 0
+        for i in result:
+            rez += i.coef
+        print(rez)
+        return
     for i in range(len(result)):
         if result[i].coef == 1:
             if i > 0:
