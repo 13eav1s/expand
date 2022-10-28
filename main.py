@@ -77,7 +77,17 @@ def break_into_limbs(exp: str) -> List[Member]:
 def  coefs_to_power_and_multiply_pascal(members: List[Member], powers: List[Power], pascal: List[int]) -> List[Member]:
     result_members = []
     for i in range(len(powers)):
-        new_member = Member(coef=members[0].coef**powers[i].power_x * members[1].coef**powers[i].power_y * pascal[i], marker='')
+        marker = ''
+        if powers[i].power_x > 0:
+            marker += 'x'
+            if powers[i].power_x > 1:
+                marker += '^' + str(powers[i].power_x)
+        if powers[i].power_y > 0:
+            marker += 'y'
+            if powers[i].power_y > 1:
+                marker += '^' + str(powers[i].power_y)
+        new_member = Member(coef=members[0].coef**powers[i].power_x * members[1].coef**powers[i].power_y * pascal[i],
+                            marker=marker)
         result_members.append(copy.copy(new_member))
     return result_members
 
