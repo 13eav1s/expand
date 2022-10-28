@@ -30,6 +30,13 @@ class Member:
             self.marker = ''
 
 
+def pascal_triangle(power: int) -> List[int]:
+    coefs = [1]
+    for i in range(power):
+        coefs = [sum(x) for x in zip([0] + coefs, coefs + [0])]
+    return coefs
+
+
 def break_into_limbs(exp: str) -> List[Member]:
     members = []
     exp = exp.replace(')^', ' ')
@@ -42,8 +49,6 @@ def break_into_limbs(exp: str) -> List[Member]:
     for memb in exp_list:
         memb_elem = Member(memb)
         members.append(memb_elem)
-
-        # members.append(exp_list[len(exp_list[0])])
     return members
 
 
