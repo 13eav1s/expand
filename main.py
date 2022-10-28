@@ -17,6 +17,24 @@ Example input:
 from typing import List
 
 
+class Power:
+    power_x: int = 0
+    power_y: int = 0
+
+    def __init__(self, x: int, y: int):
+        self.power_x = x
+        self.power_y = y
+
+    @staticmethod
+    def GetPowers(power: int) -> List[object]:
+        powers = []
+        for i in range(power + 1):
+            p = Power(power - i, i)
+            powers.append(p)
+        return powers
+
+
+
 class Member:
     coef: int = 0
     marker: str = ''
@@ -53,4 +71,7 @@ def break_into_limbs(exp: str) -> List[Member]:
 
 
 expression = input()
-break_into_limbs(expression)
+members = break_into_limbs(expression)
+pascal_coefs = pascal_triangle(members[2].coef)
+powers = Power.GetPowers(members[2].coef)
+pass
