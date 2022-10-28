@@ -35,10 +35,14 @@ class Member:
         if memb is not None:
             if not memb[len(memb) - 1].isdigit():
                 self.marker = memb[len(memb) - 1]
-                self.coef = int(memb[:len(memb) - 1])
-            else:
+            if memb[:len(memb) - 1] == '+':
+                self.coef = 1
+            elif memb[:len(memb) - 1] == '-':
+                self.coef = -1
+            elif memb.isdigit():
                 self.coef = int(memb)
-                self.marker = ''
+            else:
+                self.coef = 1
         else:
             self.coef = coef
             self.marker = marker
